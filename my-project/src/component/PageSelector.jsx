@@ -21,46 +21,98 @@ export default function PageSelector() {
   };
 
   return (
-    <div
-      className="w-[370px] h-[326px] bg-white rounded-[6px] border border-purple-300 p-[10px] flex flex-col justify-between shadow-md"
-      style={{ overflow: "hidden" }}
-    >
-      {/* Top + Pages */}
-      <div className="overflow-y-auto">
-        {/* All Pages */}
-        <div className="flex justify-between items-center pt-[8px] pr-[15px] pb-[8px] pl-[22px] bg-white rounded-lg mb-2 border-b">
-          <span className="text-gray-700 font-medium">All pages</span>
-          <input
-            type="checkbox"
-            checked={allSelected}
-            onChange={toggleAll}
-            className="w-[23px] h-[23px] rounded-[6px] opacity-100"
-          />
+    <div className="bg-[#FFFFFF] w-[578px] h-[794px]">
+      <div
+        className="w-[370px] h-[326px] mx-auto mt-[85px] bg-white rounded-[6px] border pt-[10px] pb-[10px] flex flex-col shadow-md"
+        style={{ overflow: "hidden" }}
+      >
+        {/* Top + Pages */}
+        <div>
+          {/* All Pages */}
+          <div className="flex justify-between items-center pt-[8px] pr-[15px] pb-[8px] pl-[22px] bg-white rounded-lg">
+            <span className="text-[#1F2128] font-[400] text-[14px]">
+              All pages
+            </span>
+
+            <div
+              onClick={toggleAll}
+              className={`w-[23px] h-[23px] rounded-[6px] cursor-pointer flex items-center justify-center border ${
+                allSelected
+                  ? "bg-blue-500 border-blue-500"
+                  : "bg-white border-gray-300"
+              }`}
+            >
+              {allSelected && (
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              )}
+            </div>
+          </div>
+
+          {/* Line under All Pages */}
+          <div className="border-b border-[0.7px] border-[#CDCDCD] mx-[15px] my-0 mb-[8px]"></div>
+
+          {/* Single Pages */}
+          {pages.map((page, index) => {
+            const isChecked = selectedPages.includes(page);
+            return (
+              <div
+                key={page}
+                className={`flex justify-between items-center pt-[8px] pr-[15px] pb-[8px] pl-[22px] bg-white rounded-lg ${
+                  index === pages.length - 1 ? "mb-0 pb-[4px]" : ""
+                }`}
+              >
+                <span className="text-[#1F2128] font-[400] text-[14px]">
+                  {page}
+                </span>
+
+                <div className="border-b border-[0.7px] border-[#CDCDCD] mx-[15px] my-0"></div>
+
+                <div
+                  onClick={() => togglePage(page)}
+                  className={`w-[23px] h-[23px] rounded-[6px] cursor-pointer flex items-center justify-center border ${
+                    isChecked
+                      ? "bg-blue-500 border-blue-500"
+                      : "bg-white border-gray-300"
+                  }`}
+                >
+                  {isChecked && (
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="white"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  )}
+                </div>
+              </div>
+            );
+          })}
         </div>
 
-        {/* Single Pages */}
-        {pages.map((page) => (
-          <div
-            key={page}
-            className="flex justify-between items-center pt-[8px] pr-[15px] pb-[8px] pl-[22px] bg-white rounded-lg mb-2"
-          >
-            <span className="text-gray-700">{page}</span>
-           <input
-  type="checkbox"
-  checked={selectedPages.includes(page)} // or allSelected
-  onChange={() => togglePage(page)}     // or toggleAll
-  className="w-[23px] h-[23px] rounded-[6px] opacity-100 relative top-[6.5px] left-[6px]"
-/>
-
-          </div>
-        ))}
-      </div>
-
-      {/* Done Button with top line */}
-      <div className="border-t p-6 ">
-        <button className="w-full bg-yellow-400 hover:bg-yellow-500  text-gray-900 font-medium py-3 rounded-lg transition">
-          Done
-        </button>
+        {/* Done Button with border-t */}
+        <div className="mt-[20px]">
+          <div className="border-t border-[0.7px] border-[#CDCDCD] mx-[15px] mt-[10px] mb-[4px]" />
+          <button className="ml-[15px] mt-[20px] w-[340px] h-[40px] bg-[#FFCE22] text-[#1F2128] rounded-[4px] font-medium flex items-center justify-center">
+            Done
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -1,54 +1,58 @@
 import React, { useState } from "react";
 
-const CheckboxColunm = () => {
-  // 10 checkboxes ka default state (false = empty, true = checked)
+const CheckboxColumn = () => {
   const [checks, setChecks] = useState([
     false, true, true, true, true, false, false, false, false
   ]);
 
-  // toggle function
   const toggle = (index) => {
     setChecks((prev) =>
-      prev.map((value, i) => (i === index ? !value : value))
+      prev.map((v, i) => (i === index ? !v : v))
     );
   };
 
-  // BLUE CHECK SVG
-  const BlueTick = (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="20 6 9 17 4 12"></polyline>
-    </svg>
-  );
-
-  // GRAY CHECK SVG
-  const GrayTick = (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#BDBDBD" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="20 6 9 17 4 12"></polyline>
+  const Tick = ({ color }) => (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <polyline points="20 6 9 17 4 12" />
     </svg>
   );
 
   return (
-    <div className="w-[60px] h-[600px] bg-[#E5E5E5] flex flex-col items-center justify-start py-4 gap-4">
+    <div className="w-[60px] h-[600px] bg-[#E5E5E5] flex flex-col items-center py-4 gap-4">
 
-      {checks.map((isChecked, index) => (
-        <div
+      {checks.map((checked, index) => (
+        <button
           key={index}
-          onClick={() => toggle(index)} // ← CLICK YAHAN SE HO RHA HAI
+          onClick={() => toggle(index)}
           className="
-            w-6 h-6 rounded flex items-center justify-center cursor-pointer
+            flex items-center justify-center  
+            rounded-[6px]
+            cursor-pointer 
             transition-all duration-200
           "
           style={{
-            background: isChecked ? "#1E6BFF" : "white",
-            border: isChecked ? "none" : "1px solid #BDBDBD",
-           
+            width: "25px",
+            height: "25px",
+            backgroundColor: checked ? "#1E6BFF" : "white",
+            border: checked ? "none" : "1px solid #BDBDBD",
+            opacity: checked ? 1 : 0.6,
           }}
         >
-          {isChecked ? BlueTick : null}
-        </div>
+          {checked && <Tick color="white" />}
+        </button>
       ))}
+
     </div>
   );
 };
 
-export default CheckboxColunm;
+export default CheckboxColumn;
